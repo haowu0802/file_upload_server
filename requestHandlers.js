@@ -1,25 +1,21 @@
-let exec = require("child_process").exec();
+let exec = require("child_process").exec;
 
-function start() {
+function start(response) {
     console.log("Request handler 'start' was called.");
-    let content = "empty";
 
     exec("ls -lah", function (error, stdout, stderr) {
-        content = stdout;
+        response.writeHead(200, {"Content-Type": "text/plain"});
+        response.write(stdout+"\nCopyright 2017 TheSkillPanel.com All Rights Reserved.");
+        response.end();
     });
 
-    function sleep(m){
-        let startTime = new Date().getTime();
-        while(new Date().getTime() < startTime + m){}
-    }
-
-    sleep(10000);
-    return content;
 }
 
-function upload() {
+function upload(response) {
     console.log("Request handler 'upload' was called.");
-    return "Upload";
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.write("Upload\nCopyright 2017 TheSkillPanel.com All Rights Reserved.");
+    response.end();
 }
 
 exports.start = start;
